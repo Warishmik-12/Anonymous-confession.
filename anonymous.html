@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anonymous Confession</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 30px;
+        }
+        .form-box {
+            background: #fff;
+            padding: 20px;
+            width: 360px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .confession {
+            margin-top: 20px;
+            background: #e9ffe9;
+            padding: 15px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>Anonymous Confession</h2>
+
+    <input type="text" id="name" placeholder="Anonymous Name">
+    <textarea id="message" rows="4" placeholder="Write your confession..."></textarea>
+
+    <button onclick="saveConfession()">Submit</button>
+
+    <div class="confession" id="confessionBox" style="display:none;">
+        <h3>Confession</h3>
+        <p><strong>From:</strong> <span id="displayName"></span></p>
+        <p id="displayMessage"></p>
+    </div>
+</div>
+
+<script>
+    function saveConfession() {
+        let name = document.getElementById("name").value;
+        let message = document.getElementById("message").value;
+
+        if (name === "" || message === "") {
+            alert("Please fill all fields");
+            return;
+        }
+
+        localStorage.setItem("confessionName", name);
+        localStorage.setItem("confessionMessage", message);
+
+        showConfession();
+    }
+
+    function showConfession() {
+        let savedName = localStorage.getItem("confessionName");
+        let savedMessage = localStorage.getItem("confessionMessage");
+
+        if (savedName && savedMessage) {
+            document.getElementById("displayName").innerText = savedName;
+            document.getElementById("displayMessage").innerText = savedMessage;
+            document.getElementById("confessionBox").style.display = "block";
+        }
+    }
+
+    // Show confession automatically on page load
+    showConfession();
+</script>
+
+</body>
+</html>
